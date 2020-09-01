@@ -163,12 +163,14 @@ func nameSet(names []string) map[string]bool {
 
 // superset checks that all resources are listed in the names set.
 func superset(names map[string]bool, resources map[string]types.Resource) error {
+	var keys []string
 	for resourceName := range resources {
-		if _, exists := names[resourceName]; !exists {
-			return fmt.Errorf("%q not listed", resourceName)
+		keys = append(keys, resourceName)
+		if _, exists := names[resourceName]; exists {
+			return nil
 		}
 	}
-	return nil
+	return fmt.Errorf("%v not listed", keys)
 }
 
 // CreateWatch returns a watch for an xDS request.
