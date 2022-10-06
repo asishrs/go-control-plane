@@ -1,4 +1,4 @@
-FROM golang:bullseye
+FROM golang:1
 
 WORKDIR /go-control-plane
 
